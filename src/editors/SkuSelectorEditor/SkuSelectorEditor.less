@@ -1,0 +1,41 @@
+@import "~utils/base/base";
+
+.SkuSelectorEditor {
+
+  &-config-header {
+    .v-clean-btn;
+    .v-no-outlines;
+    color: @gray-solid-a;
+    border-bottom: 2px solid @gray-solid-a;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: (@pad * 2) (@pad * 2) (@pad * 2) (@pad * 2);
+    padding: 0px;
+
+    &[data-is-open='false'] {
+      .SkuSelectorEditor-icon {
+        transform: rotate(180deg);
+        transition: transform 0.2s;
+      }
+    }
+  }
+
+  &-config-inner {
+    width: 100%;
+  }
+
+  &-config-copy {
+    float: left;
+    margin-left: 0px;
+    padding-bottom: @pad / 2;
+  }
+
+  &-icon {
+    float: right;
+    display: inline-block;
+    margin-left: @pad * 1.5;
+    padding-right: @pad;
+    transform: rotate(0deg);
+    transition: transform 0.2s;
+  }
+}

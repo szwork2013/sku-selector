@@ -1,0 +1,7 @@
+{
+  "assets": [
+    "common.js",
+    "SkuSelector.js",
+    "SkuSelectorEditor.js"
+  ]
+}

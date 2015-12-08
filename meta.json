@@ -1,0 +1,10 @@
+{
+  "name": "sku-selector",
+  "vendor": "vtex",
+  "title": "Sku Selector",
+  "description": "Sku selector component",
+  "version": "0.1.0",
+  "dependencies": {
+    "vtex.storefront": "0"
+  }
+}

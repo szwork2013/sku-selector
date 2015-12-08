@@ -1,0 +1,97 @@
+@import "~utils/base/base";
+
+.SelectVariationEditor {
+
+  .variation-header-title {
+    color: @black;
+    display: block;
+    font-size: 1.4em;
+    margin-bottom: @pad;
+  }
+
+  .inner {
+   border-radius: @pad / 2;
+   border: 2px solid @gray-solid-a;
+   padding: (@pad * 2.5) (@pad * 2);
+   background-color: lighten(@gray-soft, 3%);
+  }
+
+  .variation-label {
+    color: @gray-solid-a;
+    display: block;
+    font-size: 0.9em;
+    font-weight: 400;
+    margin-bottom: 0.2em;
+    text-transform: uppercase;
+
+    & + .VariationButtonEditor {
+      //margin-top: -(@pad / 2);
+    }
+  }
+
+  .variation-field + .variation-field {
+    margin-top: (@pad * 2);
+  }
+
+  .variation-name {
+    margin-bottom: 0px;
+    color: red;
+  }
+
+  .label-selector-current {
+    color: @gray-solid-b;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: @pad;
+  }
+
+  .label-selector-current {
+    border-radius: 3px;
+
+    &:focus {
+      border-color: @gray-solid-a;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(151, 161, 176, .6);
+    }
+  }
+
+  .button-type-selector {
+    .v-no-outlines;
+    color: @gray-solid-a;
+    padding: 12px;
+
+    .button-type-beacon {
+      background-color: @blue-matter;
+      border-radius: 50%;
+      display: none;
+      float: right;
+      margin-top: @pad;
+      height: @pad * 1.25;
+      width: @pad * 1.25;
+      border: 2px solid opacity(@blue-matter, 15%);
+    }
+  }
+
+  .button-type-selector[data-is-selected="true"]{
+    .button-type-selector;
+    color: @gray-solid-b;
+
+    .button-type-beacon{
+      display: inline-block;
+    }
+  }
+}
+
+.SelectVariationEditor[data-is-shown="true"] {
+  margin: @pad * 2;
+  opacity: 1;
+  transition: opacity 0.4s, margin 0s;
+}
+
+.SelectVariationEditor[data-is-shown="false"] {
+  margin: 0px (@pad * 2);
+  opacity: 0;
+  height: 0px;
+  overflow-y: hidden;
+  transition: opacity 0.4s, height 0.4s 0.2s, margin 0.4s;
+}

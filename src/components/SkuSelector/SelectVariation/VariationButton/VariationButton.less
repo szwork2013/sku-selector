@@ -1,0 +1,67 @@
+@import "~utils/base/base";
+
+.VariationButton {
+  padding: 0px;
+  display: inline-block;
+  margin-top: @pad;
+
+  & + & {
+    margin-left: @pad / 2;
+  }
+
+  &-button-selector {
+    .v-clean-btn;
+    .v-no-outlines;
+    background-color: #FFF;
+    border: 2px solid darken(@blue-matter, 20%);
+    border-radius: @pad / 2;
+    color: darken(@blue-matter, 20%);
+    font-weight: 500;
+    height: 40px;
+    padding: 5px;
+
+    &[data-is-active='true'] {
+      .v-unselectable;
+      background-color: darken(@blue-matter, 20%);
+      border: 2px solid darken(@blue-matter, 20%);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    &[data-is-available='false'] {
+      .v-unselectable;
+      border: 2px solid darken(#fff, 40%);
+      color: darken(#fff, 40%);
+    }
+  }
+
+  &-button-text {
+    display: block;
+    width: 100%;
+  }
+
+  &-image-selector {
+    .v-clean-btn;
+    .v-no-outlines;
+    border: 2px solid white;
+    border-radius: @pad;
+    padding: @pad / 1.2;
+
+    &[data-is-available='false'] {
+      opacity: 0.3;
+    }
+
+    &[data-is-active='true'] {
+      border: 2px solid darken(@blue-matter, 25%);
+      border-radius: @pad;
+    }
+  }
+
+  &-image {
+    width: 50px;
+    padding: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    height:auto;
+  }
+}

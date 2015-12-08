@@ -1,0 +1,37 @@
+@import "~utils/base/base";
+
+.VariationButtonEditor {
+
+  &-row {
+    min-height: 62px;
+  }
+
+  &-input {
+    float: right;
+    padding: 5px;
+    width: 20%;
+
+    &[data-is-type='IMG'] {
+      margin: 7% 0px;
+    }
+
+    &[data-is-type='PICKER'] {
+      margin: 2% 0px;
+    }
+
+  }
+
+  .VariationButton {
+    margin-top: 0px;
+
+    &-button-selector {
+      border: 2px solid @gray-solid-b;
+      color: @gray-solid-b;
+
+      &:hover, &:focus, &:active {
+        color: #FFF;
+        background: @gray-solid-b;
+      }
+    }
+  }
+}
