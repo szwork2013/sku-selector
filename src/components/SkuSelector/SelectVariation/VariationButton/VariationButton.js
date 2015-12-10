@@ -46,13 +46,9 @@ class VariationButton extends React.Component {
 
   changeState = (ev) => {
     ev.preventDefault();
-    let imgUrl = null;
-    if (this.props.type === 'IMG') {
-      imgUrl = this.getImgByVariation(this.props.name, this.props.value);
-    }
     if (this.getAvailability(this.props.value, this.props.label) > 0) {
       this.props.isActive ? this.props.removeFacet(this.props.name) :
-      this.props.addFacet(this.props.name, this.props.value, imgUrl);
+      this.props.addFacet(this.props.name, this.props.value);
     }
   }
 

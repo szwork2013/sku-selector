@@ -1,4 +1,6 @@
 import React from 'react';
+import Immutable from 'immutable';
+import getSkuVariations from 'utils/getSkuVariations'
 import SelectVariationEditor from './SelectVariationEditor/SelectVariationEditor';
 import SVGIcon from 'utils/SVGIcon';
 import downArrowIcon from 'assets/icons/down-arrow_icon.svg';
@@ -10,8 +12,8 @@ class SkuSelectorEditor extends React.Component {
     super(props);
 
     let settings = this.props.settings;
-    let { skuVariations } = this.props.componentProps;
     let { skus } = this.props.componentProps;
+    let skuVariations = Immutable.fromJS(getSkuVariations(skus));
 
     this.state = {
       skuVariations: settings && !settings.isEmpty() ? settings.get('skuVariations') : skuVariations,
