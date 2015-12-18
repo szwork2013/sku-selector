@@ -1,8 +1,8 @@
 import React from 'react';
-import { utils } from 'sdk';
+import { stores } from 'sdk';
 import './VariationButton.less';
 
-let { Img } = utils;
+const Img = stores.ComponentStore.state.getIn(['Img@vtex.storefront-sdk', 'constructor']);
 
 class VariationButton extends React.Component {
 
