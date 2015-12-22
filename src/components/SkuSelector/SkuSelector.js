@@ -37,6 +37,7 @@ class SkuSelector extends React.Component {
       return facet.name !== variationName;
     });
 
+    this.props.changeSelectedSku([]);
     this.setState({ facets });
   }
 
