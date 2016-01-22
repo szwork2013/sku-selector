@@ -43,6 +43,27 @@ class SkuSelector extends React.Component {
     this.setState({ facets });
   }
 
+  addFacet = (skuVariations) => {
+    return (variationName, variationValue) => {
+      let filteredFacet = this.state.facets.length > 0 ?
+        this.removeFacet(variationName) : [];
+
+      let facets = [
+        ...filteredFacet,
+        {
+          name: variationName,
+          value: variationValue
+        }
+      ];
+
+      if (facets.length === skuVariations.count()) {
+        this.props.changeSelectedSku(this.filterSkus(this.props.skus));
+      }
+
+      this.setState({ facets });
+    };
+  }
+
   removeFacet = (variationName) => {
     let facets = filter(this.state.facets, (facet) => {
       return facet.name !== variationName;
@@ -50,6 +71,8 @@ class SkuSelector extends React.Component {
 
     this.props.changeSelectedSku([]);
     this.setState({ facets });
+
+    return facets;
   }
 
   filterSkus = (skus) => {
@@ -93,7 +116,7 @@ class SkuSelector extends React.Component {
                   >
                     <SelectVariation
                       skus={skus}
-                      addFacet={this.addFacet}
+                      addFacet={this.addFacet(skuVariations)}
                       removeFacet={this.removeFacet}
                       facets={this.state.facets}
                       skuVariation={variationType}
