@@ -3,6 +3,8 @@ import Immutable from 'immutable';
 import getSkuVariations from 'utils/getSkuVariations';
 import SelectVariation from './SelectVariation/SelectVariation';
 import { editable } from 'vtex-editor';
+import filter from 'lodash-compat/collection/filter';
+import reduce from 'lodash-compat/collection/reduce';
 import './SkuSelector.less';
 
 @editable({
@@ -10,82 +12,121 @@ import './SkuSelector.less';
   title: 'SkuSelector'
 })
 class SkuSelector extends React.Component {
-  state = {
-    facets: []
+  componentWillMount() {
+    let filteredFacets = {};
+
+    this.props.skus.forEach((sku) => {
+      sku.properties.forEach((property) => {
+        let name = property.facet.name;
+        let value = property.facet.values[0];
+        let facetArray = filteredFacets[name];
+
+        if (facetArray && facetArray.indexOf(value) === -1) {
+          filteredFacets[name].push(value);
+        } else {
+          filteredFacets[name] = [value];
+        }
+      });
+    });
+
+    let facets = reduce(filteredFacets, (acc, values, name) => {
+      if (values.length === 1) {
+        acc.push({
+          name,
+          value: values[0]
+        });
+      }
+
+      return acc;
+    }, []);
+
+    this.setState({ facets });
   }
 
-  addFacet = (variationName, variationValue) => {
-    if (this.state.facets.length > 0) {
-      this.removeFacet(variationName);
-    }
-    this.state.facets.push({name: variationName, value: variationValue});
-    this.props.changeSelectedSku(this.filterSkus(this.props.skus));
-    this.setState({
-      facets: this.state.facets
-    });
+  addFacet = (skuVariations) => {
+    return (variationName, variationValue) => {
+      let filteredFacet = this.state.facets.length > 0 ?
+        this.removeFacet(variationName) : [];
+
+      let facets = [
+        ...filteredFacet,
+        {
+          name: variationName,
+          value: variationValue
+        }
+      ];
+
+      if (facets.length === skuVariations.count()) {
+        this.props.changeSelectedSku(this.filterSkus(this.props.skus));
+      }
+
+      this.setState({ facets });
+    };
   }
 
   removeFacet = (variationName) => {
-    this.state.facets.forEach((facet) => {
-      if (facet.name === variationName) {
-        let index = this.state.facets.indexOf(facet);
-        this.state.facets.splice(index,1);
-      }
+    let facets = filter(this.state.facets, (facet) => {
+      return facet.name !== variationName;
     });
-    this.setState({
-      facets: this.state.facets,
-    });
+
+    this.props.changeSelectedSku([]);
+    this.setState({ facets });
+
+    return facets;
   }
 
   filterSkus = (skus) => {
     let result = [];
+
     this.state.facets.forEach((facet) => {
-      result = [];
       skus.forEach((sku) => {
         sku.properties.forEach((property) => {
-          if (property.facet.name === facet.name) {
-            if (property.facet.values[0] === facet.value) {
-              if (result.indexOf(sku) === -1) {
-                result.push(sku);
-              }
-            }
+          let isNameEqual = property.facet.name === facet.name;
+          let isValueEqual = property.facet.values[0] === facet.value;
+          let isntOnResult = result.indexOf(sku) === -1;
+
+          if (isNameEqual && isValueEqual && isntOnResult) {
+            result.push(sku);
           }
         });
       });
+
       skus = result;
     });
+
     return result;
   }
 
   render() {
-    let classes = 'v-dream__selector-section col-xs-12';
     let skus = this.props.skus;
-    let skuVariations = Immutable.fromJS(getSkuVariations(skus));
-    let filteredSkus;
-
-    if (this.state.facets.length !== 0) {
-      filteredSkus = this.filterSkus(skus);
-    }
-
-    if (this.props.settings && !this.props.settings.isEmpty()) {
-      skuVariations = this.props.settings.get('skuVariations');
-    }
+    let skuVariations = this.props.settings && !this.props.settings.isEmpty() ?
+      this.props.settings.get('skuVariations') :
+      Immutable.fromJS(getSkuVariations(skus));
 
     return (
       <div className="row clearfix">
-        <div className={classes}>
-        { skuVariations ?
-          skuVariations.map((variationType) => {
-            return (
-              <div className="v-dream__selector-row row-fluid" key={variationType.get('name')}>
-                <SelectVariation skus={this.props.skus} filteredSkus={filteredSkus}
-                                 addFacet={this.addFacet} removeFacet={this.removeFacet}
-                                 facets={this.state.facets} skuVariation={variationType}
-                                 id="select-variation" route="product"/>
-              </div>
-            );
-          }) : null
-        }
+        <div className="v-dream__selector-section col-xs-12">
+          {
+            skuVariations ?
+              skuVariations.map((variationType) => {
+                return (
+                  <div
+                    className="v-dream__selector-row row-fluid"
+                    key={variationType.get('name')}
+                  >
+                    <SelectVariation
+                      skus={skus}
+                      addFacet={this.addFacet(skuVariations)}
+                      removeFacet={this.removeFacet}
+                      facets={this.state.facets}
+                      skuVariation={variationType}
+                      id="select-variation"
+                      route="product"
+                    />
+                  </div>
+                );
+              }) : null
+          }
         </div>
       </div>
     );
