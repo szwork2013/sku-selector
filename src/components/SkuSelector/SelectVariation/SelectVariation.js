@@ -30,7 +30,6 @@ class SelectVariation extends React.Component {
                   name={variationName}
                   type={this.props.skuVariation.get('type')}
                   skus={this.props.skus}
-                  filteredSkus={this.props.filteredSkus}
                   isActive={isActive}
                   facets={this.props.facets}
                   addFacet={this.props.addFacet}

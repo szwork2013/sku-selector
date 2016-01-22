@@ -65,8 +65,6 @@ class SkuSelector extends React.Component {
 
   render() {
     let skus = this.props.skus;
-    let filteredSkus = this.state.facets.length !== 0 ?
-      this.filterSkus(skus) : undefined;
     let skuVariations = this.props.settings && !this.props.settings.isEmpty() ?
       this.props.settings.get('skuVariations') :
       Immutable.fromJS(getSkuVariations(skus));
@@ -84,7 +82,6 @@ class SkuSelector extends React.Component {
                   >
                     <SelectVariation
                       skus={skus}
-                      filteredSkus={filteredSkus}
                       addFacet={this.addFacet}
                       removeFacet={this.removeFacet}
                       facets={this.state.facets}
