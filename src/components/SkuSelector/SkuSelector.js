@@ -4,6 +4,7 @@ import getSkuVariations from 'utils/getSkuVariations';
 import SelectVariation from './SelectVariation/SelectVariation';
 import { editable } from 'vtex-editor';
 import filter from 'lodash-compat/collection/filter';
+import reduce from 'lodash-compat/collection/reduce';
 import './SkuSelector.less';
 
 @editable({
@@ -11,24 +12,34 @@ import './SkuSelector.less';
   title: 'SkuSelector'
 })
 class SkuSelector extends React.Component {
-  state = {
-    facets: []
-  }
+  componentWillMount() {
+    let filteredFacets = {};
 
-  addFacet = (variationName, variationValue) => {
-    if (this.state.facets.length > 0) {
-      this.removeFacet(variationName);
-    }
+    this.props.skus.forEach((sku) => {
+      sku.properties.forEach((property) => {
+        let name = property.facet.name;
+        let value = property.facet.values[0];
+        let facetArray = filteredFacets[name];
 
-    let facets = [
-      ...this.state.facets,
-      {
-        name: variationName,
-        value: variationValue
+        if (facetArray && facetArray.indexOf(value) === -1) {
+          filteredFacets[name].push(value);
+        } else {
+          filteredFacets[name] = [value];
+        }
+      });
+    });
+
+    let facets = reduce(filteredFacets, (acc, values, name) => {
+      if (values.length === 1) {
+        acc.push({
+          name,
+          value: values[0]
+        });
       }
-    ];
 
-    this.props.changeSelectedSku(this.filterSkus(this.props.skus));
+      return acc;
+    }, []);
+
     this.setState({ facets });
   }
 
