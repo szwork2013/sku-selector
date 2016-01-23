@@ -57,7 +57,7 @@ class SkuSelector extends React.Component {
       ];
 
       if (facets.length === skuVariations.count()) {
-        this.props.changeSelectedSku(this.filterSkus(this.props.skus));
+        this.props.changeSelectedSku(this.filterSkus(this.props.skus, facets));
       }
 
       this.setState({ facets });
@@ -69,29 +69,33 @@ class SkuSelector extends React.Component {
       return facet.name !== variationName;
     });
 
-    this.props.changeSelectedSku([]);
+    this.props.changeSelectedSku();
     this.setState({ facets });
 
     return facets;
   }
 
-  filterSkus = (skus) => {
-    let result = [];
+  filterSkus = (skus, facets) => {
+    let matches = [];
+    let result;
 
-    this.state.facets.forEach((facet) => {
-      skus.forEach((sku) => {
+    skus.forEach((sku) => {
+      facets.forEach((facet) => {
         sku.properties.forEach((property) => {
           let isNameEqual = property.facet.name === facet.name;
           let isValueEqual = property.facet.values[0] === facet.value;
-          let isntOnResult = result.indexOf(sku) === -1;
 
-          if (isNameEqual && isValueEqual && isntOnResult) {
-            result.push(sku);
+          if (isNameEqual && isValueEqual) {
+            matches.push(true);
+          }
+
+          let isFacetEqual = matches.length === facets.length;
+
+          if (isFacetEqual && !result) {
+            result = sku;
           }
         });
       });
-
-      skus = result;
     });
 
     return result;
