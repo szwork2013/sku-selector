@@ -61,7 +61,7 @@ class VariationButton extends React.Component {
           className="VariationButton-button-selector"
           data-is-active={this.props.isActive}
           data-is-available={isAvailable}
-          onTouchTap={this.changeState}
+          onClick={this.changeState}
         >
           <span className="VariationButton-button-text">
             { this.props.value }
@@ -73,7 +73,7 @@ class VariationButton extends React.Component {
           className="VariationButton-image-selector"
           data-is-available={isAvailable}
           data-is-active={this.props.isActive}
-          onTouchTap={this.changeState}
+          onClick={this.changeState}
         >
           <Img
             className="VariationButton-image"
