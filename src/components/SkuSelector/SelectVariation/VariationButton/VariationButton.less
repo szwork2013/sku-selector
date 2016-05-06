@@ -18,9 +18,10 @@
     color: darken(@blue-matter, 20%);
     font-weight: 500;
     height: 40px;
+    min-width: 35px;
     padding: 5px;
 
-    &[data-is-active='true'] {
+    &[data-is-active='true'], &:hover {
       .v-unselectable;
       background-color: darken(@blue-matter, 20%);
       border: 2px solid darken(@blue-matter, 20%);

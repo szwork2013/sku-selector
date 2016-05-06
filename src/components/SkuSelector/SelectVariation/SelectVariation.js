@@ -8,7 +8,7 @@ class SelectVariation extends React.Component {
     let variationKey = this.props.skuVariation.get('orderedValues');
 
     return (
-      <div className="col-xs-12 v-dream__selector-row" key={variationName}>
+      <div className="col-xs-12" key={variationName}>
         <h3 className="v-dream__selector__title">{ variationLabel }:</h3>
         <div>
           {

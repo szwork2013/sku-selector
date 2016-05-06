@@ -115,7 +115,7 @@ class SkuSelector extends React.Component {
               skuVariations.map((variationType) => {
                 return (
                   <div
-                    className="v-dream__selector-row row-fluid"
+                    className="v-dream__selector-row"
                     key={variationType.get('name')}
                   >
                     <SelectVariation
