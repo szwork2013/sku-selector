@@ -3,7 +3,7 @@
   "vendor": "vtex",
   "title": "Sku Selector",
   "description": "Sku selector component",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "dependencies": {
     "vtex.storefront": "0"
   }
