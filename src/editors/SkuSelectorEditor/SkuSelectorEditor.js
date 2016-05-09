@@ -73,7 +73,9 @@ class SkuSelectorEditor extends React.Component {
                                	   isConfigOpen={defineConfigOpen} variationOrder={variationType.get('orderedValues')} variationValues={variationType.get('values')} changeOrder={this.changeOrder}/>
 			    );
         })}
-        <ActionBar title={this.props.title} onSave={this.handleSave.bind(this)}/>
+        <div className="SkuSelectorEditor-actionbar">
+          <ActionBar title={this.props.title} onSave={this.handleSave.bind(this)}/>
+        </div>
       </div>
     );
   }
