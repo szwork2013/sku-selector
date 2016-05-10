@@ -3,6 +3,9 @@
   "vendor": "vtex",
   "title": "Sku Selector",
   "description": "Sku selector component",
+  "categories": [
+    "appearance"
+  ],
   "version": "0.2.6",
   "dependencies": {
     "vtex.storefront": "0"
