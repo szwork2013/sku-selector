@@ -60,12 +60,6 @@ class SkuSelectorEditor extends React.Component {
 
     return (
       <div className="SkuSelectorEditor">
-        <button className="SkuSelectorEditor-config-header theme-font" data-is-open={defineConfigOpen}>
-          <div className="SkuSelectorEditor-config-inner">
-            <div className="SkuSelectorEditor-config-copy">Configuração Geral</div>
-            <SVGIcon className="SkuSelectorEditor-icon" svg={downArrowIcon} fallback={downArrowImg} height={10} fill="#97A1B0" />
-          </div>
-        </button>
         {skuVariations.map((variationType) => {
           return (
           	<SelectVariationEditor key={variationType.get('name')} name={variationType.get('name')} changeValue={this.changeValue}
@@ -74,7 +68,7 @@ class SkuSelectorEditor extends React.Component {
 			    );
         })}
         <div className="SkuSelectorEditor-actionbar">
-          <ActionBar title={this.props.title} onSave={this.handleSave.bind(this)}/>
+          <ActionBar id="-" title={this.props.title} onSave={this.handleSave.bind(this)}/>
         </div>
       </div>
     );
