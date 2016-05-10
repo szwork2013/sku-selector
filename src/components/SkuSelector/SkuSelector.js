@@ -109,14 +109,17 @@ class SkuSelector extends React.Component {
 
     return (
       <div className="row clearfix">
-          {
-            skuVariations ?
-              skuVariations.map((variationType) => {
-                return (
-                  <div className="v-dream__selector-section col-xs-12">
-                    <div
-                      className="v-dream__selector-row"
-                      key={variationType.get('name')}
+        {
+          skuVariations ?
+            skuVariations.map((variationType, index) => {
+              return (
+                <div
+                  key={index}
+                  className="v-dream__selector-section col-xs-12"
+                >
+                  <div
+                    className="v-dream__selector-row"
+                    key={variationType.get('name')}
                     >
                       <SelectVariation
                         skus={skus}
@@ -129,9 +132,9 @@ class SkuSelector extends React.Component {
                       />
                     </div>
                   </div>
-                );
-              }) : null
-          }
+              );
+            }) : null
+        }
       </div>
     );
   }
