@@ -2,9 +2,6 @@ import React from 'react';
 import Immutable from 'immutable';
 import getSkuVariations from 'utils/getSkuVariations'
 import SelectVariationEditor from './SelectVariationEditor/SelectVariationEditor';
-import SVGIcon from 'utils/SVGIcon';
-import downArrowIcon from 'assets/icons/down-arrow_icon.svg';
-import downArrowImg from 'assets/icons/down-arrow_icon.png';
 import './SkuSelectorEditor.less';
 
 class SkuSelectorEditor extends React.Component {
@@ -53,22 +50,36 @@ class SkuSelectorEditor extends React.Component {
   }
 
   render() {
-    let ActionBar = this.props.actionBar;
-    let skuVariations = this.state.skuVariations;
-
-    let defineConfigOpen = true;
+    const ActionBar = this.props.actionBar;
+    const skuVariations = this.state.skuVariations;
+    const defineConfigOpen = true;
 
     return (
       <div className="SkuSelectorEditor">
-        {skuVariations.map((variationType) => {
-          return (
-          	<SelectVariationEditor key={variationType.get('name')} name={variationType.get('name')} changeValue={this.changeValue}
-                               	   type={variationType.get('type')} variationLabel={variationType.get('label')} skus={this.state.skus}
-                               	   isConfigOpen={defineConfigOpen} variationOrder={variationType.get('orderedValues')} variationValues={variationType.get('values')} changeOrder={this.changeOrder}/>
-			    );
-        })}
+        {
+          skuVariations.map((variationType) => {
+            return (
+              <SelectVariationEditor
+                key={variationType.get('name')}
+                name={variationType.get('name')}
+                changeValue={this.changeValue}
+                type={variationType.get('type')}
+                variationLabel={variationType.get('label')}
+                skus={this.state.skus}
+                isConfigOpen={defineConfigOpen}
+                variationOrder={variationType.get('orderedValues')}
+                variationValues={variationType.get('values')}
+                changeOrder={this.changeOrder}
+              />
+            );
+          })
+        }
         <div className="SkuSelectorEditor-actionbar">
-          <ActionBar id="-" title={this.props.title} onSave={this.handleSave.bind(this)}/>
+          <ActionBar
+            id="-"
+            title={this.props.title}
+            onSave={this.handleSave.bind(this)}
+          />
         </div>
       </div>
     );
