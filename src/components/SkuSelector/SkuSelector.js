@@ -109,29 +109,29 @@ class SkuSelector extends React.Component {
 
     return (
       <div className="row clearfix">
-        <div className="v-dream__selector-section col-xs-12">
           {
             skuVariations ?
               skuVariations.map((variationType) => {
                 return (
-                  <div
-                    className="v-dream__selector-row"
-                    key={variationType.get('name')}
-                  >
-                    <SelectVariation
-                      skus={skus}
-                      addFacet={this.addFacet(skuVariations)}
-                      removeFacet={this.removeFacet}
-                      facets={this.state.facets}
-                      skuVariation={variationType}
-                      id="select-variation"
-                      route="product"
-                    />
+                  <div className="v-dream__selector-section col-xs-12">
+                    <div
+                      className="v-dream__selector-row"
+                      key={variationType.get('name')}
+                    >
+                      <SelectVariation
+                        skus={skus}
+                        addFacet={this.addFacet(skuVariations)}
+                        removeFacet={this.removeFacet}
+                        facets={this.state.facets}
+                        skuVariation={variationType}
+                        id="select-variation"
+                        route="product"
+                      />
+                    </div>
                   </div>
                 );
               }) : null
           }
-        </div>
       </div>
     );
   }
