@@ -75,11 +75,7 @@ class SkuSelectorEditor extends React.Component {
           })
         }
         <div className="SkuSelectorEditor-actionbar">
-          <ActionBar
-            id={this.props.componentProps.id}
-            title={this.props.title}
-            onSave={this.handleSave.bind(this)}
-          />
+          <ActionBar onSave={this.handleSave.bind(this)}/>
         </div>
       </div>
     );
